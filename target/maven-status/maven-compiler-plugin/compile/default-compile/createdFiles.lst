@@ -1,0 +1,4 @@
+com\mycompany\contatos\resources\JakartaEE10Resource.class
+com\mycompany\contatos\JakartaRestConfiguration.class
+com\mycompany\contatos\Contato.class
+com\mycompany\contatos\dbUtil.class
