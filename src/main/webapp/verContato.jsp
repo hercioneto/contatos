@@ -6,6 +6,8 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="com.mycompany.contatos.Contato" %>
+<%@ page import="com.mycompany.contatos.Categoria" %>
+
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -25,9 +27,14 @@
                     out.println("Contato não encontrado.");
                 } else {
                     Contato contato = contatos.get(0); // Assumindo que getContato retorna uma lista com um único item.
+                    
+                    Categoria categoria = Categoria.getCategoria(contato.getIdCategoria()).get(0); 
+
     %>
     <div><strong>Nome:</strong> <%= contato.getNome() %></div>
     <div><strong>Telefone:</strong> <%= contato.getTelefone() %></div>
+    <div><strong>Categoria:</strong> <%= categoria.getNome() %></div> <!-- Exibindo o nome da categoria -->
+
     <div><strong>Idade:</strong> <%= contato.getIdade() %></div>
     <%
                 }

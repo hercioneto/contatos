@@ -6,6 +6,7 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="com.mycompany.contatos.Contato" %>
+<%@ page import="com.mycompany.contatos.Categoria" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -22,11 +23,27 @@
             List<Contato> contatos = Contato.getContato(id);
             if (!contatos.isEmpty()) {
                 Contato contato = contatos.get(0); // Supondo que getContato retorna uma lista com um único contato
+                
+                List<Categoria> categorias = Categoria.getAllCategorias();
+
     %> 
     <form action="atualizaContato.jsp" method="post">
         <input type="hidden" id="id" name="id" value="<%= contato.getId() %>">
         Nome: <input type="text" name="nome" required value="<%= contato.getNome() %>"><br>
         Telefone: <input type="text" name="telefone" required value="<%= contato.getTelefone() %>"><br>
+        Categoria:
+        <select name="categoria_id" required>
+            <option value="">Selecione uma categoria</option>
+            <%
+                for (Categoria categoria : categorias) {
+                    String selected = (categoria.getId() == contato.getIdCategoria()) ? "selected" : "";
+            %>
+                    <option value="<%= categoria.getId() %>" <%= selected %>><%= categoria.getNome() %></option>
+            <%
+                }
+            %>
+        </select><br>
+        
         Idade: <input type="number" name="idade" required value="<%= contato.getIdade() %>" min="0"><br>
         <input type="submit" value="Salvar Contato">
     </form>

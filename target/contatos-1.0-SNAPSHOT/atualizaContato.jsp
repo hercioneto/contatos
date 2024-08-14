@@ -19,14 +19,18 @@
         String nome = request.getParameter("nome");
         String telefone = request.getParameter("telefone");
         int idade = Integer.parseInt(request.getParameter("idade"));
+        String categoriaIdS = request.getParameter("categoria_id");
 
-        if (idS != null && !idS.isEmpty()) {
+
+        if (idS != null && !idS.isEmpty() && categoriaIdS != null && !categoriaIdS.isEmpty()) {
             int id = Integer.parseInt(idS);
+            int categoriaId = Integer.parseInt(categoriaIdS);
             Contato contato = new Contato();
             contato.setId(id);
             contato.setNome(nome);
             contato.setTelefone(telefone);
             contato.setIdade(idade);
+            contato.setIdCategoria(categoriaId);  // Definindo a categoria do contato
 
             boolean sucesso = contato.atualizar();
 
@@ -40,7 +44,7 @@
         }
     %>
     
-    <p><a href="listaContato.jsp">Voltar para a lista de contatos</a></p>
+    <p><a href="listaContatos.jsp">Voltar para a lista de contatos</a></p>
     <p><a href="cadastrarContato.jsp">Cadastrar novo contato</a></p>
 </body>
 </html>

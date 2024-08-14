@@ -20,6 +20,7 @@ public class Contato {
     private String nome;
     private String telefone;
     private int idade;
+    private int idCategoria; 
 
     // Getters e Setters
     public int getId() { return id; }
@@ -34,11 +35,15 @@ public class Contato {
     public int getIdade() { return idade; }
     public void setIdade(int idade) { this.idade = idade; }
 
+    public int getIdCategoria() { return idCategoria; }  // Getter para idCategoria
+    public void setIdCategoria(int idCategoria) { this.idCategoria = idCategoria; }  // Setter para idCategoria
+
+
     // Método para salvar o contato no banco de dados
     public boolean salvar() {
         Connection conn = null;
         PreparedStatement ps = null;
-        String sql = "INSERT INTO contatos (nome, telefone, idade) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO contatos (nome, telefone, idade, categoria_id) VALUES (?, ?, ?, ?)";
 
         try {
             conn = dbUtil.getConnection();
@@ -46,6 +51,7 @@ public class Contato {
             ps.setString(1, getNome());
             ps.setString(2, getTelefone());
             ps.setInt(3, getIdade());
+            ps.setInt(4, getIdCategoria());
 
             int rowsInserted = ps.executeUpdate();
             return rowsInserted > 0;
@@ -81,6 +87,7 @@ public class Contato {
                 contato.setNome(rs.getString("nome"));
                 contato.setTelefone(rs.getString("telefone"));
                 contato.setIdade(rs.getInt("idade"));
+                contato.setIdCategoria(rs.getInt("categoria_id"));  // Recuperando idCategoria
                 contatos.add(contato);
             }
         } catch (SQLException e) {
@@ -117,6 +124,7 @@ public class Contato {
                 contato.setNome(rs.getString("nome"));
                 contato.setTelefone(rs.getString("telefone"));
                 contato.setIdade(rs.getInt("idade"));
+                contato.setIdCategoria(rs.getInt("categoria_id")); 
                 contatos.add(contato);
             }
         } catch (SQLException e) {
@@ -138,7 +146,7 @@ public class Contato {
     public boolean atualizar() {
         Connection conn = null;
         PreparedStatement ps = null;
-        String sql = "UPDATE contatos SET nome = ?, telefone = ?, idade = ? WHERE id = ?";
+        String sql = "UPDATE contatos SET nome = ?, telefone = ?, idade = ?, categoria_id=? WHERE id = ?";
 
         try {
             conn = dbUtil.getConnection();
@@ -146,7 +154,8 @@ public class Contato {
             ps.setString(1, getNome());
             ps.setString(2, getTelefone());
             ps.setInt(3, getIdade());
-            ps.setInt(4, getId());
+            ps.setInt(4, getIdCategoria());
+            ps.setInt(5, getId());
 
             int rowsUpdated = ps.executeUpdate();
             return rowsUpdated > 0;

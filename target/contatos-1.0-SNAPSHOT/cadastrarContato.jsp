@@ -4,6 +4,8 @@
     Author     : Aluno
 --%>
 
+<%@ page import="java.util.List" %>
+<%@ page import="com.mycompany.contatos.Categoria" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,6 +27,20 @@
             
             <label for="telefone">Telefone:</label>
             <input type="text" id="telefone" name="telefone" required="required" />
+            <br/><br/>
+            
+            <label for="categoria">Categoria:</label>
+            <select id="categoria" name="categoria_id" required="required">
+                <option value="">Selecione uma categoria</option>
+                <%
+                    List<Categoria> categorias = Categoria.getAllCategorias();
+                    for (Categoria categoria : categorias) {
+                %>
+                    <option value="<%= categoria.getId() %>"><%= categoria.getNome() %></option>
+                <%
+                    }
+                %>
+            </select>
             <br/><br/>
             
             <label for="idade">Idade:</label>
